@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Previsão de Custo Médico</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Previsão de Custo Médico</h1>
+        <p class="subtitulo">Preencha os dados do paciente para estimar o custo médico.</p>
+
+        <form action="/" method="POST">
+
+            <div class="campo">
+                <label for="idade">Idade</label>
+                <input type="number" id="idade" name="idade" min="0" max="120" placeholder="Ex: 35" required>
+            </div>
+
+            <div class="campo">
+                <label for="sexo">Sexo</label>
+                <select id="sexo" name="sexo" required>
+                    <option value="" disabled selected>Selecione</option>
+                    <option value="0">Masculino</option>
+                    <option value="1">Feminino</option>
+                </select>
+            </div>
+
+            <div class="campo">
+                <label for="imc">IMC (Índice de Massa Corporal)</label>
+                <input type="number" id="imc" name="imc" step="0.01" min="10" max="60" placeholder="Ex: 24.50" required>
+            </div>
+
+            <div class="campo">
+                <label for="filhos">Número de Filhos</label>
+                <input type="number" id="filhos" name="filhos" min="0" max="20" placeholder="Ex: 2" required>
+            </div>
+
+            <div class="campo">
+                <label for="fumante">Fumante</label>
+                <select id="fumante" name="fumante" required>
+                    <option value="" disabled selected>Selecione</option>
+                    <option value="0">Não</option>
+                    <option value="1">Sim</option>
+                </select>
+            </div>
+
+            <div class="campo">
+                <label for="regiao">Região</label>
+                <select id="regiao" name="regiao" required>
+                    <option value="" disabled selected>Selecione</option>
+                    <option value="noroeste">Noroeste</option>
+                    <option value="sudeste">Sudeste</option>
+                    <option value="sudoeste">Sudoeste</option>
+                    <option value="nordeste">Nordeste</option>
+                </select>
+            </div>
+
+            <button type="submit">Calcular Previsão</button>
+        </form>
+
+        {% if erro %}
+            <div class="erro">
+                <p>⚠️ {{ erro }}</p>
+            </div>
+        {% endif %}
+
+        {% if resultado is not none %}
+            <div class="resultado">
+                <h2>Custo Médico Estimado</h2>
+                <p class="valor">R$ {{ "%.2f"|format(resultado) }}</p>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
